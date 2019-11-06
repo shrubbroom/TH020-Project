@@ -155,7 +155,7 @@ def file_write(message):
         f.close()
 
 
-def question_parse(url):
+def question_parse(url, index):
     question_path = './question_url'
     response = requests.get(url, headers=headers)
     question_num = int(
@@ -192,59 +192,72 @@ def question_parse(url):
                 QA.question = str(n)
                 Checker.add((s, n))
                 file_write(str(s) + '\n' + str(n) + '\n')  # file write test
-                count = answer_parse(s, QA, count)
+                count = answer_parse(s, QA, count, index)
         file_write('\n\n')  # file write test
         print('\nquestions success at %d' % qcount)
         qcount += 1
 
 
-def answer_parse(url, question, count):
-    response = requests.get(url, headers=headers)
-    try:
-        answer_num = int(re.findall(r'\d+', BeautifulSoup(response.content, 'lxml').find_all('h4', class_='List'
-                                                                                                          '-headerText')[
-            0].text)[0])
-    except IndexError:
-        answer_num = 0
-    soup = BeautifulSoup(firefox.full_load(url, answer_num), 'lxml')
-    t = soup.find_all('div', class_='QuestionHeader-detail')
-    if len(t):
-        q = t[0].find_all('span', class_='RichText ztext')
-        if len(q):
-            file_write(q[0].text + '\n')  # file write test
-            if not q[0].text == '':
-                question.question_description = str(q[0].text)
-            else:
-                question.question_description = 'None'
-    if len(soup.find_all('div', class_='ContentItem AnswerItem')) == 0:
-        question.answer = 'None'
-        question.answer_url = question.question_url
-        question.answer = 'None'
-        question.load()
-        msg = 'success at %d' % count
-        print(msg)
-        count += 1
+def answer_parse(url, question, count, index):
+    if not (url in index):
+        response = requests.get(url, headers=headers)
+        try:
+            answer_num = int(re.findall(r'\d+', BeautifulSoup(response.content, 'lxml').find_all('h4', class_='List'
+                                                                                                              '-headerText')[
+                0].text)[0])
+        except IndexError:
+            answer_num = 0
+        soup = BeautifulSoup(firefox.full_load(url, answer_num), 'lxml')
+        t = soup.find_all('div', class_='QuestionHeader-detail')
+        if len(t):
+            q = t[0].find_all('span', class_='RichText ztext')
+            if len(q):
+                file_write(q[0].text + '\n')  # file write test
+                if not q[0].text == '':
+                    question.question_description = str(q[0].text)
+                else:
+                    question.question_description = 'None'
+        if len(soup.find_all('div', class_='ContentItem AnswerItem')) == 0:
+            question.answer = 'None'
+            question.answer_url = question.question_url
+            question.answer = 'None'
+            question.load()
+            msg = 'success at %d' % count
+            print(msg)
+            count += 1
+        else:
+            for k in soup.find_all('div', class_='ContentItem AnswerItem'):
+                message = k['data-zop']
+                question.answerer = str(
+                    message[message.index('\"authorName\"') + len('\"authorName\":\"'): message.index('\",')])
+                question.answer_url = str(
+                    question.question_url + '/answer/' + message[message.index('itemId\":') + len('itemId'
+                                                                                                  '\":')
+                                                                 : message.index(',\"title')])
+                file_write(question.answerer + '\n' + question.answer_url + '\n')  # file write test
+                a = k.find_all('span', class_='RichText ztext CopyrightRichText-richText')
+                if len(a):
+                    s = a[0].text.replace(' ', '')
+                    s = s.replace('\n', '')
+                    file_write(s + '\n')  # file write test
+                    question.answer = str(s)
+                    question.load()
+                    msg = 'success at %d' % count
+                    print(msg)
+                    count += 1
+        return count
     else:
-        for k in soup.find_all('div', class_='ContentItem AnswerItem'):
-            message = k['data-zop']
-            question.answerer = str(
-                message[message.index('\"authorName\"') + len('\"authorName\":\"'): message.index('\",')])
-            question.answer_url = str(
-                question.question_url + '/answer/' + message[message.index('itemId\":') + len('itemId'
-                                                                                              '\":')
-                                                             : message.index(',\"title')])
-            file_write(question.answerer + '\n' + question.answer_url + '\n')  # file write test
-            a = k.find_all('span', class_='RichText ztext CopyrightRichText-richText')
-            if len(a):
-                s = a[0].text.replace(' ', '')
-                s = s.replace('\n', '')
-                file_write(s + '\n')  # file write test
-                question.answer = str(s)
-                question.load()
-                msg = 'success at %d' % count
-                print(msg)
-                count += 1
-    return count
+        return count
+        pass
+
+
+def GetExistingQuestionUrl(connect, table, column):
+    cur = connect.cursor()
+    sql = 'select ' + column + ' from ' + table
+    check = set()
+    for row in cur.execute(sql):
+        check.add(row[0])
+    return check
 
 
 def main():
@@ -264,19 +277,20 @@ def main():
     file = 'data'
     database = 'sjtu.db'
     conn = sqlite3.connect(database)
+    index = GetExistingQuestionUrl(conn, 'QA', 'question_url')
     firefox = WebConnector()
-    makebase()
+    # makebase() make the table QAItem
     # test_url = 'https://www.zhihu.com/question/19849512'
-    tmp = QAItem()
-    tmp.question = 'TEST'
-    tmp.question_url = 'TEST URL'
+    # tmp = QAItem()
+    # tmp.question = 'TEST'
+    # tmp.question_url = 'TEST URL'
     # answer_parse(test_url, tmp, 0)
-    try:
-        question_parse(start_url)
-    except Exception as e:
-        fp = open('log', 'a')
-        fp.write('Exception occurred at' + str(time.asctime(time.localtime(time.time()))) + ' error:' + str(e) + '\n')
-        fp.close()
+    # try:
+    question_parse(start_url, index)
+    # except Exception as e:
+    #     fp = open('log', 'a')
+    #     fp.write('Exception occurred at' + str(time.asctime(time.localtime(time.time()))) + ' error:' + str(e) + '\n')
+    #     fp.close()
     try:
         firefox.driver.quit()
     except Exception:
