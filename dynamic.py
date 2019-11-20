@@ -8,7 +8,6 @@ import sqlite3
 import requests
 from selenium.common.exceptions import TimeoutException
 import time
-from pympler import tracker, summary, muppy
 from selenium.webdriver.firefox import options
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -32,17 +31,17 @@ class QAItem:
 
 class WebConnector:
     def __init__(self):
-        self.path = "D:\\geckodriver"
+        self.path = "/home/shrubbroom/geckodriver_path/geckodriver"
         self.option = webdriver.FirefoxOptions()
         self.option.add_argument("-headless")
         self.option.set_preference('permissions.default.image', 2)
-        self.driver = webdriver.Firefox(self.path, options=self.option)
+        self.driver = webdriver.Firefox(executable_path=self.path, options=self.option)
         self.count = 0
 
     def reload(self):
         self.driver.quit()
         print('reconnecting...')
-        self.driver = webdriver.Firefox(self.path, options=self.option)
+        self.driver = webdriver.Firefox(executable_path=self.path, options=self.option)
 
     def scroll_wait(self, time, freq, height):
         js = "return action=document.body.scrollHeight"
@@ -55,7 +54,7 @@ class WebConnector:
 
     def full_load(self, url, question_num=-1):
         self.driver.delete_all_cookies()
-        if self.count >= 100:
+        if self.count >= 27:
             self.reload()
             self.count = 0
         self.count += 1
@@ -156,7 +155,7 @@ def file_write(message):
 
 
 def question_parse(url, index):
-    question_path = './question_url'
+    question_path = './question_url_FDU'
     response = requests.get(url, headers=headers)
     question_num = int(
         BeautifulSoup(response.content, 'lxml').find_all('strong', class_='NumberBoard-itemValue')[1].string.replace(
@@ -260,6 +259,19 @@ def GetExistingQuestionUrl(connect, table, column):
     return check
 
 
+def trivial_exception(url, index):
+    try:
+        question_parse(url, index)
+    except common.exceptions.WebDriverException:
+        firefox.reload()
+        conn.commit()
+        index_ = GetExistingQuestionUrl(conn, 'QA', 'question_url')
+        trivial_exception(url, index_)
+    except Exception as e:
+          fp = open('log', 'a')
+          fp.write('Excertion occurre inside trivial exceptiond at' + str(time.asctime(time.localtime(time.time()))) + ' error:' + str(e) + '\n')
+          fp.close()
+
 def main():
     global start_url
     global conn
@@ -271,26 +283,34 @@ def main():
     fp.write('grabing task begins, time:' + str(time.asctime(time.localtime(time.time()))) + '\n')
     fp.close()
     # test_start_url = 'https://www.zhihu.com/topic/20167298/questions'
-    start_url = 'https://www.zhihu.com/topic/19575211/questions'
+    # start_url = 'https://www.zhihu.com/topic/19575211/questions'
+    start_url = 'https://www.zhihu.com/topic/19571466/questions'
     # start_url = 'https://www.zhihu.com/topic/19582064/questions'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0'}
-    file = 'data'
-    database = 'sjtu.db'
+    file = 'data_FDU'
+    database = 'fdu.db'
     conn = sqlite3.connect(database)
+    # makebase()
     index = GetExistingQuestionUrl(conn, 'QA', 'question_url')
     firefox = WebConnector()
-    # makebase() make the table QAItem
     # test_url = 'https://www.zhihu.com/question/19849512'
     # tmp = QAItem()
     # tmp.question = 'TEST'
     # tmp.question_url = 'TEST URL'
     # answer_parse(test_url, tmp, 0)
+    try:
+    	trivial_exception(start_url, index)
+    except Exception as e:
+        fp = open('log', 'a')
+        fp.write('Exception occurred in module main.trivial-exception at' + str(time.asctime(time.localtime(time.time()))) + ' error:' + str(e) + '\n')
+        fp.close()
     # try:
-    question_parse(start_url, index)
+    #    question_parse(start_url, index)
+    # except selenium.common.exceptions.WebDriverException :
     # except Exception as e:
-    #     fp = open('log', 'a')
-    #     fp.write('Exception occurred at' + str(time.asctime(time.localtime(time.time()))) + ' error:' + str(e) + '\n')
-    #     fp.close()
+    #      fp = open('log', 'a')
+    #      fp.write('Exception occurred at' + str(time.asctime(time.localtime(time.time()))) + ' error:' + str(e) + '\n')
+    #      fp.close()
     try:
         firefox.driver.quit()
     except Exception:

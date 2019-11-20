@@ -120,3 +120,139 @@ terminate at 3.37%:answer parsing
 terminate at 54.55%:answer parsing
 terminate at 18.04%:answer parsing
 grab finished atWed Nov  6 17:56:15 2019
+grabing task begins, time:Wed Nov  6 18:47:12 2019
+terminate at 99.81%: question page parsing
+terminate at 5.62%:answer parsing
+terminate at 2.56%:answer parsing
+terminate at 91.67%:answer parsing
+terminate at 15.54%:answer parsing
+terminate at 24.69%:answer parsing
+terminate at 4.24%:answer parsing
+terminate at 14.96%:answer parsing
+terminate at 3.40%:answer parsing
+terminate at 4.50%:answer parsing
+terminate at 25.32%:answer parsing
+terminate at 10.20%:answer parsing
+terminate at 31.25%:answer parsing
+terminate at 27.03%:answer parsing
+terminate at 42.11%:answer parsing
+terminate at 1.89%:answer parsing
+terminate at 23.53%:answer parsing
+terminate at 1.48%:answer parsing
+terminate at 28.85%:answer parsing
+terminate at 39.22%:answer parsing
+terminate at 16.48%:answer parsing
+terminate at 1.08%:answer parsing
+terminate at 29.41%:answer parsing
+terminate at 4.46%:answer parsing
+terminate at 6.76%:answer parsing
+Exception occurred atThu Nov  7 00:00:17 2019 error:HTTPSConnectionPool(host='www.zhihu.com', port=443): Max retries exceeded with url: /question/300616294 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x000001910302D5F8>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+grab finished atThu Nov  7 00:00:18 2019
+grabing task begins, time:Thu Nov  7 14:01:28 2019
+grabing task begins, time:Sun Nov 10 01:17:56 2019
+grabing task begins, time:Sun Nov 10 01:18:43 2019
+Exception occurred atSun Nov 10 01:18:44 2019 error:Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?
+grab finished atSun Nov 10 01:18:44 2019
+grabing task begins, time:Sun Nov 10 01:24:17 2019
+grabing task begins, time:Sun Nov 10 01:25:05 2019
+grabing task begins, time:Sun Nov 10 01:30:19 2019
+grabing task begins, time:Sun Nov 10 01:30:56 2019
+grabing task begins, time:Sun Nov 10 01:31:59 2019
+grabing task begins, time:Sun Nov 10 01:34:45 2019
+grabing task begins, time:Sun Nov 10 01:36:02 2019
+Exception occurred atSun Nov 10 01:36:07 2019 error:Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?
+grab finished atSun Nov 10 01:36:12 2019
+grabing task begins, time:Sun Nov 10 01:38:01 2019
+Exception occurred atSun Nov 10 01:38:05 2019 error:Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?
+grab finished atSun Nov 10 01:38:10 2019
+grabing task begins, time:Sun Nov 10 01:39:28 2019
+Exception occurred atSun Nov 10 01:39:32 2019 error:Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?
+grab finished atSun Nov 10 01:39:34 2019
+grabing task begins, time:Sun Nov 10 01:40:02 2019
+grabing task begins, time:Sun Nov 10 01:41:45 2019
+grabing task begins, time:Sun Nov 10 01:44:04 2019
+grabing task begins, time:Sun Nov 10 01:48:28 2019
+grabing task begins, time:Sun Nov 10 01:54:04 2019
+grabing task begins, time:Sun Nov 10 01:56:49 2019
+grabing task begins, time:Sun Nov 10 02:02:59 2019
+grabing task begins, time:Sun Nov 10 02:07:29 2019
+grabing task begins, time:Sun Nov 10 11:05:57 2019
+grabing task begins, time:Sun Nov 10 11:09:18 2019
+grabing task begins, time:Sun Nov 10 11:34:01 2019
+grabing task begins, time:Sun Nov 10 11:41:27 2019
+grabing task begins, time:Sun Nov 10 12:18:08 2019
+grabing task begins, time:Sun Nov 10 12:26:17 2019
+grabing task begins, time:Sun Nov 10 12:34:07 2019
+Exception occurred atSun Nov 10 12:36:20 2019 error:[Errno 20] Not a directory: '/home/shrubbroom/geckodriver_path/geckodriver'
+grab finished atSun Nov 10 12:36:20 2019
+grabing task begins, time:Sun Nov 10 12:37:31 2019
+grabing task begins, time:Sun Nov 10 12:41:41 2019
+terminate at 6.67%:answer parsing
+terminate at 3.82%:answer parsing
+terminate at 105.83%:answer parsing
+Exception occurred atSun Nov 10 13:29:34 2019 error:Message: Failed to decode response from marionette
+
+grab finished atSun Nov 10 13:29:34 2019
+grabing task begins, time:Sun Nov 10 13:37:45 2019
+terminate at 103.77%:answer parsing
+terminate at 4.85%:answer parsing
+terminate at 97.32%:answer parsing
+terminate at 1.05%:answer parsing
+terminate at 5.05%:answer parsing
+terminate at 11.63%:answer parsing
+terminate at 7.08%:answer parsing
+terminate at 6.17%:answer parsing
+terminate at 4.72%:answer parsing
+terminate at 7.69%:answer parsing
+terminate at 5.32%:answer parsing
+terminate at 1.49%:answer parsing
+terminate at 7.58%:answer parsing
+terminate at 112.02%:answer parsing
+Exception occurred atSun Nov 10 15:36:30 2019 error:Message: Failed to decode response from marionette
+
+grab finished atSun Nov 10 15:36:30 2019
+grabing task begins, time:Sun Nov 10 16:57:35 2019
+terminate at 28.57%:answer parsing
+terminate at 8.33%:answer parsing
+terminate at 115.18%:answer parsing
+Exception occurred atSun Nov 10 17:41:05 2019 error:Message: Failed to decode response from marionette
+
+grab finished atSun Nov 10 17:41:05 2019
+grabing task begins, time:Sun Nov 10 18:24:00 2019
+terminate at 8.33%:answer parsing
+terminate at 2.14%:answer parsing
+terminate at 8.77%:answer parsing
+terminate at 2.81%:answer parsing
+Exception occurred atSun Nov 10 18:58:05 2019 error:Message: Failed to decode response from marionette
+
+grab finished atSun Nov 10 18:58:05 2019
+grabing task begins, time:Sun Nov 10 19:11:43 2019
+grabing task begins, time:Sun Nov 10 19:13:04 2019
+grabing task begins, time:Sun Nov 10 19:15:19 2019
+terminate at 92.59%:answer parsing
+grabing task begins, time:Sun Nov 10 19:24:29 2019
+terminate at 92.59%:answer parsing
+terminate at 3.45%:answer parsing
+terminate at 4.76%:answer parsing
+terminate at 0.88%:answer parsing
+terminate at 6.49%:answer parsing
+terminate at 6.94%:answer parsing
+terminate at 111.11%:answer parsing
+terminate at 8.77%:answer parsing
+terminate at 6.47%:answer parsing
+terminate at 9.43%:answer parsing
+terminate at 0.99%:answer parsing
+terminate at 113.21%:answer parsing
+terminate at 107.14%:answer parsing
+terminate at 43.40%:answer parsing
+terminate at 8.06%:answer parsing
+terminate at 9.62%:answer parsing
+terminate at 12.11%:answer parsing
+terminate at 94.83%:answer parsing
+terminate at 26.32%:answer parsing
+terminate at 6.25%:answer parsing
+terminate at 19.23%:answer parsing
+terminate at 17.09%:answer parsing
+terminate at 8.20%:answer parsing
+terminate at 92.86%:answer parsing
+grabing task begins, time:Sun Nov 10 21:56:42 2019
