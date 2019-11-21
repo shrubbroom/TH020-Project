@@ -18,6 +18,17 @@ class SqlIO:
         self.connect = sqlite3.connect(database)
         self.tables = {}
 
+    def SqlTableExists(self, table_name):
+        sql = "select name from main.sqlite_master where type = \'table\'"
+        cursor = self.connect.cursor()
+        count = cursor.execute(sql)
+        for row in count:
+            if row[0] == table_name:
+                cursor.close()
+                return True
+        cursor.close()
+        return False
+
     def SqlMake(self, table_name, primary, primary_len, terms, terms_len):
         sql = "create table " + table_name + " (" + primary + " varchar(" + str(primary_len) + ") "
         for i in terms:
@@ -29,9 +40,11 @@ class SqlIO:
         cursor.close()
 
     def SqlReader(self, table_name, column):
-        sql = "select " + column + " from" + table_name
+        sql = "select " + column + " from " + table_name
         cursor = self.connect.cursor()
-        tmp = cursor.execute(sql)
+        tmp = []
+        for row in cursor.execute(sql):
+            tmp.append(row[0])
         cursor.close()
         return tmp
 
@@ -55,6 +68,10 @@ class SqlIO:
         cursor = self.connect.cursor()
         cursor.execute(sql, tuple(tmp))
         cursor.close()
+
+    def __del__(self):
+        self.connect.commit()
+        self.connect.close()
 
 
 class Parser:
@@ -84,8 +101,18 @@ class Parser:
 
 
 def main():
-    pass
-
+    db = "sjtu.db"
+    sqlobj = SqlIO(db)
+    reg = re.compile(r'.*如何看待.*')
+    check = []
+    count = 0
+    for i in sqlobj.SqlReader('QA', 'question'):
+        if reg.search(i) is not None:
+            if reg.search(i).string not in check:
+                count +=1
+                check.append(reg.search(i).string)
+                print(reg.search(i).string)
+    print(count)
 
 if __name__ == '__main__':
     main()
