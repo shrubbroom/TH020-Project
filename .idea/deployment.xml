@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="shrubbroom@47.98.244.82:22">
+  <component name="PublishConfigData" autoUpload="Always">
     <serverData>
-      <paths name="shrubbroom@47.98.244.82:22">
+      <paths name="chenjiayi@202.120.39.158:9989">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/shrubbroom/pyprj/py" local="$PROJECT_DIR$" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="miracle@47.97.197.130:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -13,6 +20,20 @@
         <serverdata>
           <mappings>
             <mapping deploy="/home/shrubbroom/pyprj/py" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="zhanghao@202.120.36.29:22001">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="zhanghao@202.120.39.158:9989">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
